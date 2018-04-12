@@ -1,0 +1,2 @@
+regex="\\s*\\d*?.?\\d+\\s?y[e]*[a]*rs?"
+to do R&D for years 
