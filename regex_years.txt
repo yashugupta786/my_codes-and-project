@@ -1,2 +1,25 @@
 regex="\\s*\\d*?.?\\d+\\s?y[e]*[a]*rs?"
 to do R&D for years 
+
+def get_exp(stat):
+  try:
+    statment=re.sub('+',' ',statement)
+    matches=re.finditer(regex,statment)
+    matchesall=[]
+
+    for matchNum,match in enumerate(matches):
+      matchesall.append(str(match.group()))
+    experience_list=[]
+    exp=mamatchesall
+    for eachitem in exp:
+      experience_list.append(re.findall('\d+',eachitem)[0])
+  except Exception as e:
+     print("exception occured:"+str(e))
+     experience_list=[]
+  return experience_list
+    
+    
+ if__name=="__main__":
+  for statement in queries:
+    exp=get_exp(statement)
+    
