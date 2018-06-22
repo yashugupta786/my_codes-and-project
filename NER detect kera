@@ -1,0 +1,208 @@
+import os
+# os.environ["KERAS_BACKEND"] = "theano"
+# import keras.backend
+# if keras.backend.backend() != 'theano':
+#     raise BaseException("This script uses other backend")
+# else:
+#     keras.backend.set_image_dim_ordering('th')
+#     print("Backend ok")
+from nltk import word_tokenize
+import json
+from keras.models import model_from_json
+from keras.preprocessing.sequence import pad_sequences
+from collections import Counter
+
+# filepath = "data/"
+filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)),"data")
+weight_filename = "weights-improvement-03-0.4385.hdf5"
+
+
+class NER_Detector:
+    def __init__(self):
+        try:
+            self.ind2label = json.load(open(os.path.join(filepath,"ind2label")))
+            self.char_to_int = json.load(open(os.path.join(filepath,"char_to_int")))
+            self.int_to_char = json.load(open(os.path.join(filepath,"int_to_char")))
+            self.maxlen = json.load(open(os.path.join(filepath,"maxlen")))
+            json_file = open(os.path.join(filepath,'model.json'), 'r')
+            loaded_model_json = json_file.read()
+            json_file.close()
+            self.loaded_model = model_from_json(loaded_model_json)
+            self.loaded_model.load_weights(os.path.join(filepath,weight_filename))
+            self.loaded_model.compile(loss='categorical_crossentropy', optimizer='adam')
+            self.skills_list = self.convert_to_dict(set(json.load(open(os.path.join(filepath,"skills_data")))),"skill")
+            self.roles_list = self.convert_to_dict(set(json.load(open(os.path.join(filepath,"role_data")))),"role")
+            # self.edu_level = self.convert_to_dict(set(json.load(open(os.path.join(filepath,"edu_level")))),"edu_level")
+            # self.edu_streams = self.convert_to_dict(set(json.load(open(os.path.join(filepath,"edu_streams")))),"edu_stream")
+            # self.indsutry_list = self.convert_to_dict(set(json.load(open(os.path.join(filepath,"indsutry_list")))),"ind")
+            # self.company_list = self.convert_to_dict(set(json.load(open(os.path.join(filepath,"company_names")))),"company")
+            # self.locations = self.convert_to_dict(set(json.load(open(os.path.join(filepath,"locations_all")))),"loc")
+            self.company_words = {"associates", "bank", "consultancy", "consultants", "inc.", "inc", "pvt.ltd.", "pvtltd.", "limited",
+                 "pvtltd", "pvt.ltd", "ltd.", "ltd", "private", "pvt.", "pvt", "services", "jobs"}
+            self.punct_marks = {",","'","/","?",".",">","<",":",";",'"',"{","}","[","]","\\","|","!","@","#","$","%","^","&","*","(",")","-","_","=","+","`","~","@"}
+            if os.path.isfile(os.path.join(filepath,"already_mapped")) and os.stat(os.path.join(filepath,"already_mapped")).st_size > 0:
+                self.already_mapped = json.load(open(os.path.join(filepath, "already_mapped")))
+                try:
+                    del self.already_mapped["abcd"]
+                except:
+                    pass
+            else:
+                self.already_mapped = {}
+            self.current_length = len(self.already_mapped)
+        except Exception as e:
+            print("NER_Detector __init__ error : ",str(e))
+            raise Exception(str(e))
+
+    def convert_to_dict(self,set_list,val):
+        try:
+            tmp_dict = {}
+            for s in set_list:
+                tmp_dict[s] = val
+            return tmp_dict
+        except Exception as e:
+            print("Error while converting to dict",str(e))
+            raise Exception(str(e))
+
+    def convert_txt_to_vec(self,txt):
+        try:
+            new_x = []
+            if len(txt)>self.maxlen:
+                txt = txt[:self.maxlen]
+            for c in txt:
+                try:
+                    new_x.append(self.char_to_int[c])
+                except:
+                    new_x.append(self.char_to_int["undetected"])
+            print(new_x)
+            return new_x
+        except Exception as e:
+            print("NER_Detector convert_txt_to_vec error : ",str(e))
+            raise Exception(str(e))
+
+    def convert_string(self,input_string):
+        try:
+            input_string = input_string.lower().strip()
+            input_string = input_string.replace(".","").replace(",","").replace(" ","").replace("-","")
+            return input_string
+        except Exception as e:
+            print("NER_Detector convert_string error : ",str(e))
+            raise Exception(str(e))
+
+    def categorize_txt(self,query_list):
+        try:
+            X_enc = []
+            op = {"edu_level":[],"edu_stream":[],"o":[],"skill":[],"role":[],"ind":[],"company":[],"loc":[]}
+            for query in query_list:
+                q = query.lower().replace('''"''', '''''').replace("_"," ").strip()
+                already_mapped = False
+                if len(q):
+                    try:
+                        op[self.already_mapped[q]].append(q)
+                        already_mapped = True
+                    except:
+                        pass
+                    try:
+                        op[self.locations[q]].append(q)
+                        already_mapped = True
+                    except:
+                        pass
+                    try:
+                        op[self.skills_list[q]].append(q)
+                        already_mapped = True
+                    except:
+                        pass
+                    try:
+                        op[self.roles_list[q]].append(q)
+                        already_mapped = True
+                    except:
+                        pass
+                    try:
+                        op[self.indsutry_list[q]].append(q)
+                        already_mapped = True
+                    except:
+                        pass
+                    try:
+                        op[self.company_list[q]].append(q)
+                        already_mapped = True
+                    except:
+                        pass
+                    try:
+                        op[self.edu_level[self.convert_string(q)]].append(q)
+                        already_mapped = True
+                    except:
+                        pass
+                    try:
+                        op[self.edu_streams[self.convert_string(q)]].append(q)
+                        already_mapped = True
+                    except:
+                        pass
+                    if already_mapped == False:
+                        if q.endswith(".com"):
+                            op["company"].append(q)
+                            already_mapped = True
+                        elif len(set(word_tokenize(q)) & set(self.company_words)):
+                            op["company"].append(q)
+                            already_mapped = True
+                        elif len(set(word_tokenize(q)) & set(self.punct_marks))==len(set(word_tokenize(q))):
+                            op["o"].append(q)
+                            already_mapped = True
+                    if not already_mapped:
+                        X_enc.append(self.convert_txt_to_vec(q))
+            if len(X_enc):
+                tmp_op = self.get_categories_of_unmapped(X_enc)
+                for k,v in tmp_op.items():
+                    op[v].append(k)
+            for k,v in op.items():
+                op[k] = list(set(v))
+            if len(self.already_mapped)>(self.current_length+50000):
+                with open(os.path.join(filepath+"already_mapped"),"w") as f:
+                    json.dump(self.already_mapped,f)
+                self.current_length = len(self.already_mapped)
+            return op
+        except Exception as e:
+            print("NER_Detector categorize_txt error : ", str(e))
+            raise Exception(str(e))
+
+    def get_categories_of_unmapped(self,X_enc):
+        try:
+            detector_op = {}
+            X_enc_reverse = [[c for c in reversed(x)] for x in X_enc]
+            X_enc_f = pad_sequences(X_enc, maxlen=self.maxlen)
+            X_enc_b = pad_sequences(X_enc_reverse, maxlen=self.maxlen)
+            print(X_enc_f)
+            print(X_enc_b)
+            pred = self.loaded_model.predict_classes([X_enc_f, X_enc_b])
+            pred_prob = self.loaded_model.predict_proba([X_enc_f, X_enc_b])
+            print(pred_prob)
+            print(pred)
+            for i, p in enumerate(pred):
+                tmp_p = p[(self.maxlen - len(X_enc[i])):]
+                print(i,p,tmp_p)
+                new_p = Counter([self.ind2label[str(m)] for m in tmp_p])
+                input_q = "".join([self.int_to_char[str(t)] for t in X_enc[i]])
+                if "o" in new_p.keys() and (("skill" in new_p.keys() and new_p["o"] == new_p["skill"]) or (
+                        "role" in new_p.keys() and new_p["o"] == new_p["role"])):
+                    output_q = "o"
+                else:
+                    output_q = max(new_p, key=new_p.get)
+                detector_op[input_q] = output_q
+            self.already_mapped.update(detector_op)
+            return detector_op
+        except Exception as e:
+            print("NER_Detector get_categories_of_unmapped error : ", str(e))
+            raise Exception(str(e))
+
+
+if __name__ == "__main__":
+    obj = NER_Detector()
+    X_enc = []
+    q = ""
+    while q !="exit":
+        q = input("enter text : ")
+        # q = "java"
+        # str_tmp = '''java,python,r,sales,marketing,advertisement,advertiser,sales executive,business development officer'''
+        X_enc.append(obj.convert_txt_to_vec(q))
+        print (obj.get_categories_of_unmapped(X_enc))
+    # print(obj.categorize_txt('''-,dtcc,tata consultancy,zxo,cfo,salesforce.com,monster,monsterindia,monster.com,monsterindia.com'''.split(",")))
+    # print(obj.categorize_txt(['personal financial','personal financial advisor']))
+    # print(obj.categorize_txt(["p2p data specialist","successfactor consultant","hana","pig","hive","sqoop","flume","apache pig","apache storm","apache solr","storm","solr"]))
