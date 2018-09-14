@@ -1,0 +1,110 @@
+import pandas as pd
+from sklearn import ensemble
+import numpy as np
+from scipy.stats import mode
+from sklearn import preprocessing,model_selection
+from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import LogisticRegression
+import csv
+from itertools import zip_longest
+from sklearn.model_selection import GridSearchCV
+from xgboost.sklearn import XGBClassifier
+
+department_names = None
+education_names = None
+gender_names = None
+department_names_dict = {}
+education_names_dict = {}
+gender_names_dict = {}
+def filter_data(path):
+    global department_names
+    global education_names
+    global gender_names
+    global department_names_dict
+    global education_names_dict
+    global gender_names_dict
+
+    df=pd.read_csv(path)
+    # department_names=df["department"].tolist()
+    df['education'].fillna(mode(list(df['education'])).mode[0], inplace=True)
+    df['previous_year_rating'].fillna(int(df['previous_year_rating'].mean()), inplace=True)
+    df['previous_year_rating']=df['previous_year_rating'].astype(int)
+
+    if department_names == None:
+
+        department_names=list(set(df["department"].tolist()))
+        department_names_dict = {value : i for i, value in enumerate(department_names)}
+
+    if education_names == None:
+        education_names = list(set(df["education"].tolist()))
+        education_names_dict = {value: i for i, value in enumerate(education_names)}
+
+    if gender_names == None:
+        gender_names = list(set(df["gender"].tolist()))
+        gender_names_dict = {value: i for i, value in enumerate(gender_names)}
+
+    df["department_name_id"] = df["department"].map(department_names_dict)
+    df["education_name_id"] = df["education"].map(education_names_dict)
+    df["gender_name_id"] = df["gender"].map(gender_names_dict)
+    # var_mod = ['department',"education","gender"]
+    # label_encoder_obejct = LabelEncoder()
+    # for i in var_mod:
+    #     label_encoder_obejct.fit(list(df[i].values))
+    #     df[i] = label_encoder_obejct.transform(list(df[i]))
+
+    return df
+
+def train_model():
+    df_train = filter_data(path="train_LZdllcl.csv")
+
+
+    df_train["total_score"] = df_train["no_of_trainings"] * df_train["avg_training_score"]
+
+    # x=['department','education','no_of_trainings','age','previous_year_rating','length_of_service','KPIs_met >80%','awards_won?',"avg_training_score"]
+
+    # x=['department','age','previous_year_rating','length_of_service','KPIs_met >80%',"total_score"]
+    x=['department_name_id','education_name_id', 'age', 'previous_year_rating','length_of_service','KPIs_met >80%',"total_score"]
+    y=['is_promoted']
+
+    X_train,X_test,y_train,y_test=model_selection.train_test_split(df_train[x],df_train[y],test_size=0.1,random_state=42)
+    # clf = XGBClassifier(
+    #     learning_rate=0.1,
+    #     n_estimators=1000,
+    #     max_depth=5,
+    #     min_child_weight=1,
+    #     gamma=0,
+    #     subsample=0.8,
+    #     colsample_bytree=0.8,
+    #     objective='binary:logistic',
+    #     nthread=4,
+    #     scale_pos_weight=1,
+    #     seed=27)
+    clf=ensemble.RandomForestClassifier(n_estimators=250,min_samples_split=5,max_features=2,oob_score=True,n_jobs=-1,criterion='entropy',min_samples_leaf = 2)
+    clf.fit(X_train,y_train)
+
+
+    accuracy=clf.score(X_test,y_test)
+    print(accuracy)
+
+    test_data_path = "test_2umaH9m.csv"
+
+    df_test = filter_data(path=test_data_path)
+    df_test["total_score"] = df_test["no_of_trainings"] * df_test["avg_training_score"]
+
+    df_predict = df_test[x]
+
+    is_promoted = clf.predict(df_predict)
+    employee_id = df_test['employee_id'].tolist()
+
+    final_list_toCSV = [employee_id, is_promoted]
+    export_data = zip_longest(*final_list_toCSV, fillvalue='')
+    with open('wns_hackathon6.csv', 'w', encoding='utf-8', newline='') as myfile:
+        wr = csv.writer(myfile)
+        wr.writerow(("employee_id","is_promoted"))
+        wr.writerows(export_data)
+    myfile.close()
+
+
+
+train_model()
+
