@@ -473,7 +473,7 @@ class ImageTextExtractor:
 if __name__ == "__main__":
     obj = ImageTextExtractor()
     import time
-    # url = "http://media.monsterindia.qa/userResumes/mediastore/233"
+   
     # response = requests.get(url=url)
     # byte_image = response.content
     # img = Image.open(io.BytesIO(content))
