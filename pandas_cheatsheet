@@ -1,1 +1,9 @@
 
+source https://www.dataquest.io/blog/pandas-python-tutorial/
+1) read csv
+pd.read_csv("../../")
+
+2) find the shape of data frame df.shape --->it describes the rows and columns
+ 
+3) querying using iloc and loc ---> print(df.loc[df['score_phrase'] == "Amazing"][["release_month","genre"]])
+
