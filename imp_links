@@ -17,3 +17,5 @@ https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html loss machine 
 https://www.depends-on-the-definition.com/guide-sequence-tagging-neural-networks-python/ NER Tagger
 
 https://github.com/keras-team/keras/issues/7133 LSTM embeding and non embeding layer
+
+https://towardsdatascience.com/nlp-building-a-question-answering-model-ed0529a68c54 squad dataset
