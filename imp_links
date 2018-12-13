@@ -20,3 +20,7 @@ https://github.com/keras-team/keras/issues/7133 LSTM embeding and non embeding l
 
 https://towardsdatascience.com/nlp-building-a-question-answering-model-ed0529a68c54 squad dataset
 https://towardsdatascience.com/building-a-question-answering-system-part-1-9388aadff507 QA system
+
+
+[10:49 PM, 12/13/2018] Sohom Ghosh: https://github.com/sohomghosh/Solutions_of_Data_Science_Hackathons/blob/master/Analytics_Vidhya/AV_Linguipedia_Sep18/av_linguipedia%20(3).ipynb
+[10:49 PM, 12/13/2018] Sohom Ghosh: train_test_features=pd.concat([pd.DataFrame(features_sent),pd.DataFrame(features_sent_ft),train_test_tfidf],axis=1)
