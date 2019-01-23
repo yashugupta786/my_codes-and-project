@@ -1,0 +1,53 @@
+from flask import Flask, jsonify
+import json, requests
+from flask_cors import CORS, cross_origin
+from flask import json
+from flask.globals import request
+
+#--------------------------------------------
+app = Flask(__name__)
+CORS(app)
+#-------------------------------------------
+@app.route('/fudi', methods=['POST'])
+@cross_origin()
+def loda():
+    if request.method != 'POST':
+        return json.dumps({"Status": "ERROR", "DATA": None, "Reason": "Only accept POST request"})
+    if not request.headers['Content-Type'] == 'application/json':
+        return json.dumps({"Status": "ERROR", "DATA": None, "Reason": "Only  accept Content-Type:application/json"})
+    if not request.is_json:
+        return json.dumps({"Status": "ERROR", "DATA": None,
+                           "Reason": 'Expecting json data in the form {"data":"VALUE"}'})
+    data = request.json
+    if 'data' not in data:
+        return json.dumps({"Status": "ERROR", "DATA": None, "Reason": 'Expecting key as data'})
+    try:
+        statement = data['data']
+
+
+    except Exception as e:
+        return json.dumps({"Status": "ERROR", "DATA": None,
+                           "Reason": 'Failed to parse: "data" should be str'})
+
+    try:
+        print(statement)
+
+    except Exception as e:
+        return json.dumps({'Status": "ERROR", "DATA": None, "Reason": "Internal server error'})
+
+    return json.dumps({"Status": "SUCCESS", "DATA": statement, "Reason": ""})
+
+
+def startAPIs():
+    try:
+        app.run( port=(8080), debug=True, threaded=True)
+        app.run()
+
+
+    except Exception as e:
+        raise ("APIs not started Exception (startAPIs ) at : " + str("192.168.1.8") + ":" + str(8080) + " due to :" + str(
+            e))
+
+
+if __name__ == '__main__':
+    startAPIs()
