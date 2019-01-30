@@ -12,3 +12,7 @@ pd.read_csv("../../")
   5)Assigning a list to pandas data frame 
   df["Name of the column"]=list
 
+
+7)Remove duplicates -->initial_data.drop_duplicates(subset=['caseId'], keep="first",inplace=True)
+
+8)non nan initial_data = initial_data[initial_data['caseId']!='nan'] 
