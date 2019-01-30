@@ -6,4 +6,6 @@ pd.read_csv("../../")
 2) find the shape of data frame df.shape --->it describes the rows and columns
  
 3) querying using iloc and loc ---> print(df.loc[df['score_phrase'] == "Amazing"][["release_month","genre"]])
+4) print(df.loc[df["Staff Group"]=="CHSI",["Epl_days","nfl_days"]])
+   print(df[df["Staff Group"]=="CHSI"][["Epl_days","nfl_days"]])
 
