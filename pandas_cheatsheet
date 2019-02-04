@@ -16,3 +16,4 @@ pd.read_csv("../../")
 7)Remove duplicates -->initial_data.drop_duplicates(subset=['caseId'], keep="first",inplace=True)
 
 8)non nan initial_data = initial_data[initial_data['caseId']!='nan'] 
+9) data['Staff Group1']=data['Staff Group'].apply(lambda x:{'Billing':1, 'CHSI':2, 'New Products':3, 'Order Entry':4, 'Repair':5, 'Sales':6}.get(x,x))
