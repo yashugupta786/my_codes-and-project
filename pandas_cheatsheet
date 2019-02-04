@@ -19,3 +19,4 @@ pd.read_csv("../../")
 9) data['Staff Group1']=data['Staff Group'].apply(lambda x:{'Billing':1, 'CHSI':2, 'New Products':3, 'Order Entry':4, 'Repair':5, 'Sales':6}.get(x,x))
 10) labels = {'a': 1,'b': 0,'c':2}
     data["NPS"] = [labels[item] for item in data["NPS"]]
+    data['diagnosis'] = data['diagnosis'].map({'M':1, 'B':0});
