@@ -1,0 +1,8 @@
+lstm input 
+input() is used to convert 1D array to 3D array . LSTM accepts 3 dimensional array rather than 1D input 
+3 parameters
+Samples. One sequence is one sample. A batch is comprised of one or more samples.
+Time Steps. One time step is one point of observation in the sample.
+Features. One feature is one observation at a time step.
+
+https://machinelearningmastery.com/reshape-input-data-long-short-term-memory-networks-keras/
