@@ -64,3 +64,8 @@ http://www.manythings.org/anki/     datasets for neural machine translation
 
 #-----------------------regression
 https://stackoverflow.com/questions/47577168/how-can-i-increase-the-accuracy-of-my-linear-regression-modelmachine-learning/47588521
+
+
+
+#----------------Random search tuning hyperparameters
+https://towardsdatascience.com/hyperparameter-tuning-the-random-forest-in-python-using-scikit-learn-28d2aa77dd74
