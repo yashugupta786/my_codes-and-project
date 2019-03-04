@@ -20,3 +20,10 @@ pd.read_csv("../../")
 10) labels = {'a': 1,'b': 0,'c':2}
     data["NPS"] = [labels[item] for item in data["NPS"]]
     data['diagnosis'] = data['diagnosis'].map({'M':1, 'B':0});
+    
+11) plot points for smote checking
+pd.value_counts(data['Class']).plot.bar()
+plt.title('Fraud class histogram')
+plt.xlabel('Class')
+plt.ylabel('Frequency')
+data['Class'].value_counts()
