@@ -72,3 +72,8 @@ https://towardsdatascience.com/hyperparameter-tuning-the-random-forest-in-python
 
 #-----------------------scaling the paramater using minmax and standard scalar
 https://machinelearningmastery.com/how-to-improve-neural-network-stability-and-modeling-performance-with-data-scaling/
+
+
+
+#--------------smote machine learning and oversampling data
+https://www.kaggle.com/qianchao/smote-with-imbalance-data/notebook
