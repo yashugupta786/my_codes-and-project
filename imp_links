@@ -91,3 +91,7 @@ http://keras.dhpit.com/
 
 #-----------------Neural machine translation
 https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/
+
+
+#--------------elmo embeddings
+https://towardsdatascience.com/elmo-contextual-language-embedding-335de2268604
