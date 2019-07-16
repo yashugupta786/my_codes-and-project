@@ -1,0 +1,42 @@
+Neural machine transalation 
+given data tag sentence  english  german 
+steps for nmt data processing -->
+1 load the data 
+2 convert the data in pairs  for eg ["Hi","hallo"]
+3 remove punctuation
+4 lower the words ["hi","hallo"]
+5 write to a pkl file
+
+load the data set and divide to train ,test set 
+
+load all data ,train, test []["Hi","hallo"]]
+tokenize the vocablary
+find the eng vocab size 
+find the max lenght of english sentence
+
+
+same wise 
+tokenize the german 
+find the german vocablary size
+max length of german sentence
+
+use keras tokenizer and texts_to_sequence for text==> integer 
+We can use the Keras Tokenize class to map words to integers, as needed for modeling. We will use separate tokenizer for the English sequences and the German sequences. The function below-named create_tokenizer() will train a tokenizer on a list of phrases.
+
+Each input and output sequence must be encoded to integers and padded to the maximum phrase length. This is because we will use a word embedding for the input sequences and one hot encode the output sequences The function below named encode_sequences() will perform these operations and return the result.
+
+
+pad the indexes based out on max lenght for the german sentence that is X_train 
+pad the indexes based out on max lenght for the german sentence that is Y_train 
+
+The output sequence needs to be one-hot encoded. This is because the model will predict the probability of each word in the vocabulary as output.
+
+
+Ready to define the model 
+, the input sequence is encoded by a front-end model called the encoder then decoded word by word by a backend model called the decoder.
+
+used lstm for forward ie german for converting to fixed length vector 
+use sequential layer
+then embeding layer (german_vocab,dimension,maxlenght)
+model.add(LSTM(n_units))model.add(LSTM(n_units, return_sequences=True))
+model.add(TimeDistributed(Dense(eng_vocab, activation='softmax')))
