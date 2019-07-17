@@ -1,0 +1,93 @@
+       DATA
+	Qualitative-->(Nominal,Ordinal)
+	Quantitative--->?(Descrete,Continous)
+	
+	
+----Qualitative--deals with chracterstics and descripter that can be measure easily,but can be observed subjectively --
+
+Nominal Data-->Data with no inherent order or ranking  such as gender or race called Nominal data
+Ordinal data-->Data with ordered series such as shown in table 
+oo1--> good
+002-->bad
+003-->better
+
+
+---QUANTITATIVE DATA-->DEALS WITH NUMBER AND THINGS THAT WE MEASURE OBJEVTIVELY 
+Discrete data--finite number of possible values 
+Continous Data -- infinite num of possible value
+
+
+statistics--field of analysis,interpretationa nd  presenatttion of data--
+population --universal set 
+sample - subset of universe with all parameters
+
+Sampling - study the part of population 
+
+sampling 
+1 probablity 
+2 non probablity sampling 
+
+
+probablity sampling --sample choosen with probablity theory
+1 random - randomly choosen (any can be choosen)
+2 systematic sampling --every nth record can be choosen (happening in a systemic way )
+3 stratified- A stratum is a subset of population 	that shares at least a common chracterstics 
+foreg population human ,create a stratum for male and female  and after that choose random samples from the same 
+
+
+Types of statistics 
+1 Descriptive statistics- describe the features of data set by giving the summary  for the same (chracterstics of data)
+2 inferential Statistics - makes prediction about data about a  population 
+
+
+descriptive
+measure of central tendency - mean , median, mode
+measure of spread(variability) -range ,variance , standard deviation 
+
+
+mean - sum of all and divide by all
+median -sort and choose the middle value . in case of even take the 2 middle values and average them
+mode- the most recurrent value is called the mode
+
+range ---> max - min 
+inter quartile range -->divide the data in quator
+variance --->(=x-mean(x))2/n
+sd squareroot of variance 
+
+#---------------------------------------------------------------------------
+
+information gain (involved in dt and random forrest) and entropy --->
+Entropy -measure the impurity and uncertainty in the data
+H(S)=-pi log2(pi)
+s= all instances
+N= number of distinct 
+Pi= event probablity 
+
+Information gain - how much info a particular feature gives us about the final outcome 
+Gain(A,S)=H(S)-H(A,S)
+H(S)- entropy of whole dataset 
+H(A,S)-- entropy of the attribute A 
+
+
+less the entropy th more imp the variable is 
+ ------------------------------------------------probablity and Probablity Distribution------------------------------------
+Probablity is ratio of desired outcomes to the total outcome
+
+
+disjoint event- not common output (a card will be king or queen at a time only one can be drawn)
+non disjoint event - common output a student get 100 marks in stat and 100 marks in probablity 
+
+Probablity distribution types
+1 probablity density function 
+2 normal distribution
+3 central limit theorem 
+
+
+1 probablity density - it is the continous probablity distribution .it is a range between the 2 variable or we can say that probablity of continous random variable lie between range a and b and defined by a bell shaped curve
+
+
+2 Normal distribution is also called gaussion distribution that denoted the symmetric properties of the mean. which mean data  near the mean occur very frequently than the data occur away the mean . data near the mean represent the entire data set
+if the standard deviation is small the curve is Tall and narrow and vice versa
+
+Hypothesis testing- statistians use hypothesis testing whether to check hypothesis is accepted or not  
+
