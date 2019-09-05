@@ -1,0 +1,50 @@
+Pandas convert a count based feature to the binary 
+
+watched = np.array(popsong_df['listen_count']) 
+watched[watched >= 1] = 1
+popsong_df['watched'] = watched
+#-----------------------------------------------------Using SKLEARN 
+from sklearn.preprocessing import Binarizer
+bn = Binarizer(threshold=0.9)
+pd_watched = bn.transform([popsong_df['listen_count']])[0]
+popsong_df['pd_watched'] = pd_watched
+popsong_df.head(11)
+
+#------------------------------------------------------------------
+feature selection on all data or training data only 
+if we doing feature selection on all data that results into optimistically biased performance estimates.
+as it will reduce the variance but not the bias . will not able to get trade off 
+To get an unbiased performance estimate test data should not be used in any way to make choices 
+
+#----------Bining the age -------------------
+Binning, also known as quantization is used for transforming continuous numeric features into discrete ones (categories)
+suppose we have age we can convert them using bining 
+Age Range: Bin
+---------------
+ 0 -  9  : 0
+10 - 19  : 1
+20 - 29  : 2
+30 - 39  : 3
+40 - 49  : 4
+50 - 59  : 5
+60 - 69  : 6
+  ... and so on
+
+fcc_survey_df['Age_bin_round'] = np.array(np.floor(
+                              np.array(fcc_survey_df['Age']) / 10.))
+fcc_survey_df[['ID.x', 'Age', 'Age_bin_round']].iloc[1071:1076]
+Better approach is to used the cross valiodation 
+#---------------------------------------------------------
+Feature engineering and dummy encoding and hashing scheme for converting the cateogorical variables to number
+https://towardsdatascience.com/understanding-feature-engineering-part-2-categorical-data-f54324193e63
+https://towardsdatascience.com/smarter-ways-to-encode-categorical-data-for-machine-learning-part-1-of-3-6dca2f71b159
+https://www.datacamp.com/community/tutorials/categorical-data
+
+If we dont use the hashing trick there is a chance of overfiting in the model due to curse of dimensionality 
+
+
+#------------------------------------
+#
+https://medium.com/@manjabogicevic/multiple-linear-regression-using-python-b99754591ac0
+
+https://towardsdatascience.com/how-to-select-the-right-evaluation-metric-for-machine-learning-models-part-1-regrression-metrics-3606e25beae0
