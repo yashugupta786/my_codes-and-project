@@ -7,36 +7,73 @@ foreg x1,x2,x3,x4 are the words and we have embeddings for each of these . just 
 
 We widely use RNN or lstm network for NMT task
 
+
+Encoder-Decoder architecture -:
+
 IN neural machine translation we map the words to a vector called embeddings and for complete sentence we create a fixed length vector using rnn and decorder using a language decodee tht fixed length vector to the target . In normal encoder decoder architecture what we do is we passed the fixed length vector at last time step to the decoder and then decoder convert the sentence to target 
 but the problem while decoding the time step we need to go back to the first word for its translation but rnn gets fail so we use lstm .but still for long sentences problem does not get resolved 
-The first word of the target is fully corelated with first word of source so.but that decoder needs to consider info from that 50 words long. in this case we get long term dependenc problem with lstm also if sentence is long . either the sol is we can use bi-LSTM but that does not resolve the problem fully 
-
-Attention mechanism --:with attention mechanism we no longer encode the sentence fully into the fixed length vector .Instead of that we pass every at every time step hidden state to the decoder for the translation
-
-suppose x is the source sentence words and y is the output words from the decoder.here each decoder y_t focus on the weighted  combination of all the 
-input states which means we take all the states rather than the last state.also each state has attention weights that defines how much input info should be consider for the output.
-steps in this for attention mechanims 
-1-give each hidden state a score that are the attention weights for decoder
-2- softmax the score 
-3-multiply each hidden state with its softmax score
-4-sum up the weighted vectors
+The first word of the target is fully corelated with first word of source so.but that decoder needs to consider info from that 50 words long. in this case we get long term dependenc problem with lstm also if sentence is long . either the sol is we can use bi-LSTM but that does not resolve the problem fully.The trouble with seq2seq is that the only information that the decoder receives from the encoder is the last encoder hidden state 
 
 
-lets combine everything 
-1- get the all hidden state from the encoder side
-2-the attention deocoder takes the embeding of end token at initial hiden state.
-3- rnn process its input and produces a output and a new hidden state vector.The output is discarded
-4-we use encoder hidden state and h4 vector to find or claculate the  a context vector for this tiem step 
-5- we concatenate the h4 and c4 into one vecotr
-6- repeat the steps for the same 
+#_------------------------------------------------------------------------------------------------------------------------------------------
+Attention mechanism --:with attention mechanism we no longer encode the sentence fully into the fixed length vector .Instead passing last time step hidden state to decorder we pass all hidden states to the decoder .how it works is 
 
 
-\
+Step1--:
 
-#--------------
-The alignment vector
-The alignment vector is a vector that has the same length with the source sequence and is computed at every time step of the decoder. Each of its values is the score (or the probability) of the corresponding word within the source sequence:
+Suppose X is the sentence . we have all the words for that sentence .we pass vectors for that words in our lstm . it process the word with a output hidden state. we use that hidden state and pass it to next time step with the new word .we get a new hidden state the process goes on .suppose we have 4 words , we get 4 hidden states in the encoder side , we pass the the last consolidated hidden state to decoder first time step and get the first decoder hidden state 
+
+Step 2 --:
+
+Now we calculate the attention score for evry enocder hiden state.it is also called the alignment score.We take a dot product of every encoder hidden state and decoder hidenn state foreg
+
+Decoder state=[10,5,10] 
+encoder states=[0,1,1] 15
+               [5,0,1] 60
+               [1,1,0] 15 
+	       [0,5,1] 30
+
+Step3 ---
+we run all the scores through a softmax layer and we get prob in range 0-1
+
+encoder_hidden  score  score^
+-----------------------------
+     [0, 1, 1]     15       0
+     [5, 0, 1]     60       1
+     [1, 1, 0]     15       0
+     [0, 5, 1]     35       0
+
+Notice that based on the softmaxed score score^, the distribution of attention is only placed on [5, 0, 1] as expected. In reality, these numbers are not binary but a floating point between 0 and 1.
+
+Step4-:
+
+multiply each encoder hidden state with the softmax score 
+
+encoder  score  score^  alignment
+---------------------------------
+[0, 1, 1]   15      0   [0, 0, 0]
+[5, 0, 1]   60      1   [5, 0, 1]
+[1, 1, 0]   15      0   [0, 0, 0]
+[0, 5, 1]   35      0   [0, 0, 0]
+
+Here we see that the alignment for all encoder hidden states except [5, 0, 1] are reduced to 0 due to low attention scores. This means we can expect that the first translated word should match the input word with the [5, 0, 1] embedding.
+
+step5 ---:: 
+Sum up the alignment vectors to get the context vector.
+The alignment vectors are summed up to produce the context vector [1, 2]. A context vector is an aggregated information of the alignment vectors from the previous step.
+context = [0+5+0+0, 0+0+0+0, 0+1+0+0] = [5, 0, 1]
+
+step6- feed the context vector to the decoder .
+concat the context and decoder hidden state vector into one vector
+
+Let us now bring the whole thing together in the following visualization and look at how the attention process works:
+
+The attention decoder RNN takes in the embedding of the <END> token, and an initial decoder hidden state.
+The RNN processes its inputs, producing an output and a new hidden state vector (h4). The output is discarded.
+Attention Step: We use the encoder hidden states and the h4 vector to calculate a context vector (C4) for this time step.
+We concatenate h4 and C4 into one vector.
+We pass this vector through a feedforward neural network (one trained jointly with the model).
+The output of the feedforward neural networks indicates the output word of this time step.
+Repeat for the next time steps
 
 
-Figure 6: Alignment vector
-What alignment vectors do is to put weights onto the encoder’s output or intuitively, they tell the decoder what to focus on at each time step.
