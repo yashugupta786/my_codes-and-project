@@ -1,0 +1,35 @@
+covariance - how 2 variables varies together 
+cov(x,y)= (x-u)(y-u)/n-1
+cor=cov(x,y)/sd(x)sd(y)
+
+
+feature scaling-: we perform feature scaling in the range of -1 to 1 . we can speed up gradient decent when performing scaling due to range .theta will descend quickly on small ranges as compare to large range . 
+
+gradient decent - the job of gradient descent is to find the value of theta that minimize the cost function. so when have small ranges it is easy to find the global minima 
+
+x- min(x)/max- min
+
+
+Decision trees--Leads to overfitting the model when the tree is very deep . we take subset of data and at every node we make decison and model tries to learn the data in so much detail which leads to overfiting of model.The model learns everything in very much detail .for making a decision it will look for the data in very much detail which increase the variance .by setting max depth we can limit to overfitting 
+
+#--------------------------------------------------------------------------------------------
+https://medium.com/@harshdeepsingh_35448/understanding-random-forests-aa0ccecdbbbb
+
+Random forrest It prevents the overfiting by creating multiple decison trees and it tak different subset of data random with replacement. this is how it does not prone to overfitting
+
+n_estimators = number of trees in the foreset
+max_features = max number of features considered for splitting a node
+max_depth = max number of levels in each decision tree
+min_samples_split = min number of data points placed in a node before the node is split
+min_samples_leaf = min number of data points allowed in a leaf node
+bootstrap = method for sampling data points (with or without replacement)
+
+
+#---------------------------------Boosting ------------------------------------
+in this what we do is we boost the weak learners. we train a model . we test that model on the training data and look for error the points that are mis classified by the model. We train another model we take that misclassified points and random data  and agaion test tthat model . the process goes on until we have strong predictor 
+
+Gradient boosting - for minimizing the loss we use gradient descent 
+
+
+XGboost-Xtreme gradient boost- It involves sequential decision tree
+we assign similar weights to all our learners. once model is tested on training set it looks for misclassified points and assign some weights to those points . the records with high weight goes for training in next model and process goes on until we get a strong learner 
