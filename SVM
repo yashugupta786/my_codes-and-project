@@ -9,3 +9,43 @@ if c is High  our bias is low and variance is high . bacuse we penalize the cost
  
  
  
+Quora
+What is the intuition behind the Cost and Gamma parameters in SVM?
+Vibhu Singh
+Vibhu Singh, Stock Market Enthusiast, Machine Learning
+Updated Feb 3, 2018
+Originally Answered: What is the intuition behind the Cost and Gamma parameters in SVM ?
+In Support Vector Machine, we need to choose different parameters to optimize our algorithms.
+
+Choice of kernel (Similarity function)
+Linear kernel
+Polynomial kernel
+Logisitic/ Sigmoid kernel
+Gaussian/RBF kernel
+Choice of parameter C
+Choice of Gamma ( if using Gaussian kernel)
+Parameter C
+
+The C parameter controls the tradeoff between classification of training points accurately and a smooth decision boundary or in a simple word, it suggests the model to choose data points as a support vector.
+
+If the value of C is large then model choose more data points as a support vector and we get the higher variance and lower bias, which may lead to the problem of overfitting.
+
+
+If the value of C is small then model choose fewer data points as a support vector and get lower variance/high bias.
+
+
+Parameter Gamma
+
+K (xi,xj) = exp (-γ||xi - xj||2)
+
+This is the equation of RBF kernel. Here γ is a positive constant and known as Gamma. Gamma defines how far the influence of single training example reaches.
+
+If the value of Gamma is high, then our decision boundary will depend on points close to the decision boundary and nearer points carry more weights than far away points due to which our decision boundary becomes more wiggly.
+
+If the value of Gamma is low, then far away points carry more weights than nearer points and thus our decision boundary becomes more like a straight line.
+
+Conclusion
+
+The value of gamma and C should not be very high because it leads to the overfitting or it shouldn’t be very small (underfitting). Thus we need to choose the optimal value of C and Gamma in order to get a good fit.
+
+4.7k views · View Upvoters
