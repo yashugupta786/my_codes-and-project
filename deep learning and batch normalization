@@ -1,0 +1,48 @@
+Batch normalization
+It is a technique which is use to normalize or standardize our network to increase the training speed and increase the performance of network .As it act as regularizer. in this what we do is we normalize the output of on layer and before passing it to next layer activation  we standardize the output . It helps in standardizing the weight of our neural network.and helps from the problem of exploding gradient .
+
+The idea is to normalize the input of each layer in such a way that the mean output activation is zero and standard deviation of 1 
+
+
+https://towardsdatascience.com/lstm-nuggets-for-practical-applications-5beef5252092
+#-------------------------
+LSTM
+The LSTM input layer must be 3D.
+The meaning of the 3 input dimensions are: samples, time steps, and features.
+The LSTM input layer is defined by the input_shape argument on the first hidden layer.
+The input_shape argument takes a tuple of two values that define the number of time steps and features.
+The number of samples is assumed to be 1 or more.
+The reshape() function on NumPy arrays can be used to reshape your 1D or 2D data to be 3D.
+The reshape() function takes a tuple as an argument that defines the new shape.
+
+
+#_------------------------------------
+Time steps- no of words in a particular sentence and converted to a vector  
+features-no of words in the vocab
+#-----------------
+
+when we define the shape of the lstm we define it in 2d not in 3d that are the num of time steps and no of features 
+Input(shape=(nb_timesteps, nb_features))
+time steps can be fixed lenghth or variable length so if needed variable we define it in the format of 
+Input(shape=(None, nb_features)).
+#-------------------------------------------------------------
+keras embeding layer contains the model.add(embeding(size of vocab,dimension vector , max length))
+
+
+#--------------------------------Return Sequence and return state ------------------------------------
+units- dimensionality of output space
+return sequence - true
+which means each hidden state output is returned for each time step
+return state-true - 
+whihc means return the hidden state output and cell state for the last time step \
+
+
+#-------------time distributed layer ---------------
+we use the time ditributed layer in rnn or lstm .suppose we have 60 time steps and 100 samples and we want rnn to output 200 .if we don't use time distributed dense we will have a tensor of 100*60*200 tensor. we have flatened the ouput . so time ditributed do is makes dense conection in each time step
+
+in simple words makes the dense layer of the nodes identical so that they have same weights and biases 
+
+
+#--------------------------categorical cross entropy and sparse cateogorical cross entropy 
+if targets are one hot encoded we use categorical cross entropy
+if targets are integers we use sparse cross entropy
