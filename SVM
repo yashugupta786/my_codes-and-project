@@ -1,0 +1,11 @@
+https://www.quora.com/What-is-the-intuition-behind-the-Cost-and-Gamma-parameters-in-SVM/answer/Vibhu-Singh-20
+
+
+
+In SVM 
+c is the control tradeoff that is the it is the cost of misclassification 
+if c is High  our bias is low and variance is high . bacuse we penalize the cost of misclassifiction 
+ and gamma is low we look for far points and if gamma is high we look for closser points
+ 
+ 
+ 
