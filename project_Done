@@ -1,0 +1,35 @@
+EXL 
+Neural translation
+Tesseract engine for converting  pdf to editable word
+Image processing engine 
+classification email,other embeded analytics 
+corona analysis from different sources and making wordcloud for that using custom training on fast ai and word2vec 
+#------------------------------------------------
+Eclerx
+NMT(Seq2Seq with attention)
+S4x similarity using elmo and word vectors
+NPS predictor 
+R2R Predictor
+NPS Drivers
+BAXA Classification (Demonstarive,ornot demonstation),binary text and multiclass prediction
+Chatvolume forcast (in which we have the original dates and actuals calls for different vertical like billing,reconsilation)
+Nps prediction and predicting the classes 
+churn prediction 
+admin bot 
+#---------------monster projects ----------------
+1 chatbot
+NER
+Tesseract Resume parser 
+Classification using RNN for classifyng extracted content from resume 
+recommendation engine
+semantic search
+intent classification 
+GEnpact
+Intelligent connectiion
+neural Platform
+
+
+
+
+
+
