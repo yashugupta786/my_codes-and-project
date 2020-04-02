@@ -7,6 +7,7 @@ corona analysis from different sources and making wordcloud for that using custo
 #------------------------------------------------
 Eclerx
 NMT(Seq2Seq with attention)
+Tia ticket classification (laptopuser/ISG/HR/Compliance/RDP/windows/password/reset/tools)
 S4x similarity using elmo and word vectors
 NPS predictor 
 R2R Predictor
