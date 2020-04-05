@@ -15,7 +15,7 @@ NPS Drivers
 BAXA Classification (Demonstarive,ornot demonstation),binary text and multiclass prediction
 Chatvolume forcast (in which we have the original dates and actuals calls for different vertical like billing,reconsilation)
 Nps prediction and predicting the classes 
-churn prediction 
+churn prediction
 admin bot 
 #---------------monster projects ----------------
 1 chatbot
@@ -40,6 +40,11 @@ And agent can enter that string
 
 After that we devloped a engine which classify the string enter by user into different category that is demonstrated or no demonstrate or partial demonstrate 
 Using bert language model
+ After the user submission 
+There is aaudit team who audit the answers entered by user
+Into demonstrate,not demonstrate,partial demonstrate
+To find the quality of agents and the  call feedback by user 
+
 
 
 
