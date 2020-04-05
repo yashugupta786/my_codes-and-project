@@ -29,7 +29,17 @@ GEnpact
 Intelligent connectiion
 neural Platform
 
+Future projects
+S4x similarity auto taging 
+We have legal client in which a 15 min call happens and bpo agents answer questions by entering a string
+That string needs to be validate by most of times agent enters same string which reduces the productivity so we implemented a engine fo fiding the similarity of text they enter
+We match the string using elmo embeding and finding the similarity and
+Find the score if score is less than 60 percent we take string is unique
+And agent can enter that string 
 
+
+After that we devloped a engine which classify the string enter by user into different category that is demonstrated or no demonstrate or partial demonstrate 
+Using bert language model
 
 
 
