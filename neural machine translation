@@ -89,3 +89,36 @@ Code for attention NMT and working
 https://towardsdatascience.com/implementing-neural-machine-translation-with-attention-using-tensorflow-fc9c6f26155f
 https://towardsdatascience.com/intuitive-understanding-of-attention-mechanism-in-deep-learning-6c9482aecf4f
 https://towardsdatascience.com/attn-illustrated-attention-5ec4ad276ee3
+
+
+
+my intuation 
+
+for seq2 seq 
+how it works is it takes tha combine context vector and that context vetor is passed to the decorder side
+started with a start token and information from prevoius time step(context vector).based on that it generate a target word based on the probablity of the 
+corpus .in next time step it take that prevoius word as the new input and infor  from prevoius time step and based on that it made predictions 
+#--------------------------------------------------------------------------
+
+
+SEQ2SEQ with attention bahadanau attention model 
+What we do in this we take all hidden state instead of passing last hidden state foreg 
+we have a sentence 
+yashu is my name-----yashu(hindi) mera naam hai 
+we will feed these 4 wrds as their embedings into the LSTM or GRU we will get 4 hidden states 
+H1 h2 h3 h4  here attention come as as decode does not have any internal state so we pass the last encoder state as the currennt state od decoder
+based on that we train a Feedforward neural network for finding the relevant hidden state for the first word translation 
+ 
+suppose yashu(hindi) is defined from the h1 or h2 based on that we train feed forward network.The reason is hidden states have the local info about the 
+word 
+
+after training network we got 4 output we softmaz output for making in the range of 0 to 1 
+ we multiply the output with the hidden state and add it that is a context vector 
+ we concat  the context vector with start token and pass to LSTM we get a output word at hidden state d0
+ 
+ then for next time step we take info from prevous time step and the input that is the word we get 
+ again we train a feedforward network for finding the context vector and concat with the word be obtain in last time step and pass to lstm 
+ and we get a new out put ...the proccess goes on until we find a end token 
+ 
+
+ 
