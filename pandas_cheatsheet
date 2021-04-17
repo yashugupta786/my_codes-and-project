@@ -34,3 +34,82 @@ from sklearn.preprocessing import StandardScaler
 data['normAmount'] = StandardScaler().fit_transform(data['Amount'].reshape(-1, 1))
 data = data.drop(['Time', 'Amount'], axis=1)
 data.head()
+
+
+
+# coding=utf8
+
+import pandas as pd
+from Code.config import NPS_values
+import numpy as np
+from Code import config
+from datetime import datetime
+
+class ChatInteractions(object):
+    # def load_data(self):
+    #     # initial_data = pd.read_csv("Training 5k Chat 1.0.csv",
+    #     # encoding="iso-8859-1")
+    #     initial_data = pd.read_csv("Testing 5k Chat 1.0.csv",encoding="iso-8859-1")
+    #     initial_data = initial_data[initial_data['accountNumber'] != 'nan']
+    #     # data = preprocess_data(initial_data[cols])
+    #     # initial_data=initial_data[initial_data['accountNumber']=='"8155100020416180"']
+    #     # initial_data=initial_data[initial_data['accountNumber']=='"8155100525501148"']
+    #     self.get_interactions(initial_data)
+
+    def get_interactions(self,data):
+        data.dropna(subset=['chatStartDateTime'], inplace=True)
+        gp_data=data.groupby("accountNumber")
+        training_data = pd.DataFrame(columns=config.train_cols)
+        for name in gp_data.groups:
+            group=gp_data.get_group(name)
+            try:
+                group['chatStartDateTime'] = group[
+                    'chatStartDateTime'].apply(lambda x:datetime.strptime(str(x),
+                                                                           "%m/%d/%Y %H:%M"))
+            except:
+                group['chatStartDateTime']=group['chatStartDateTime']
+            group.sort_values(by=['chatStartDateTime'], inplace=True,
+                              ascending=False)
+            # n_v=group['NPS'].dropna()
+            n = group['NPS'].dropna()
+            data_row = self.get_row(group)
+            data_row['same_row']=len(n)==len(data_row)
+            if len(n)!=len(data_row):
+                print(group['accountNumber'])
+            training_data=pd.concat([training_data,data_row],
+                                    ignore_index=True,sort=True)
+        training_data = training_data[training_data['accountNumber']!='"nan"']
+        # training_data.to_csv("Training 5k interactions 1.0.csv",index=False)
+        # training_data.to_csv("Testing 5k interactions 1.0.csv",index=False)
+        return training_data
+
+    def get_row(self,df):
+        data_row = pd.DataFrame(columns=config.train_cols)
+        new_df = pd.DataFrame(data=df[config.cols].values[:,:],
+                              columns=config.cols)
+        while(len(new_df.loc[new_df['NPS'].isin(NPS_values)].index.values)>0):
+            last_date= max(list(new_df[new_df['NPS'].isin(NPS_values)]['chatStartDateTime']))
+            new_df = new_df[~(new_df['chatStartDateTime']>last_date)]
+            new_df['DeadAirInstances']=new_df['DeadAirInstances'].fillna(new_df['DeadAirInstances'].mean())
+            new_df['DeadAirTotalMinutes']=new_df['DeadAirTotalMinutes'].fillna(new_df['DeadAirTotalMinutes'].mean ())
+            # my_frame=new_df[cols].mean()
+            my_frame = self.get_weighted_data(new_df)
+            my_frame['NPS'] = new_df['NPS'].values[0]
+            my_frame['contentTextInternal'] =new_df['contentTextInternal'].values[0]
+            my_frame['caseId'] = new_df['caseId'].values[0]
+            my_frame['accountNumber'] = new_df['accountNumber'].values[0]
+            new_df = new_df[1:]
+            caseIDs = list(new_df['caseId'])
+            new_df = df[df['caseId'].isin(caseIDs)][config.cols]
+            my_frame = pd.DataFrame(my_frame).transpose()
+            data_row = pd.concat([data_row,my_frame],ignore_index=True, sort=True)
+        return data_row
+
+    def get_weighted_data(self,data):
+        depreciation_rate = 1/len(data)
+        weights = [1]
+        for i in range(1,len(data)):
+            weights.append(weights[-1]*(1-depreciation_rate))
+        result = data[config.weighted_cols].apply(lambda x: np.asarray(x) * np.asarray (weights), axis=0)
+        data[config.weighted_cols] = result
+        return data[config.mean_cols[1:]].mean()
