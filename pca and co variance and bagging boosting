@@ -1,3 +1,6 @@
+https://medium.com/analytics-vidhya/principal-component-analysis-pca-558969e63613
+https://medium.com/@aptrishu/understanding-principle-component-analysis-e32be0253ef0
+
 covariance - how 2 variables varies together 
 cov(x,y)= (x-u)(y-u)/n-1
 cor=cov(x,y)/sd(x)sd(y)
