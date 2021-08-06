@@ -1,0 +1,87 @@
+# This Python 3 environment comes with many helpful analytics libraries installed
+# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python
+# For example, here's several helpful packages to load in 
+
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+import matplotlib.pyplot as plt # data visualization
+import seaborn as sns # statistical data visualization
+%matplotlib inline
+
+# Input data files are available in the "../input/" directory.
+# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory
+
+import os
+for dirname, _, filenames in os.walk('/kaggle/input'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+
+# Any results you write to the current directory are saved as output
+
+
+#---------import dataset 
+data = '/kaggle/input/car-evaluation-data-set/car_evaluation.csv'
+
+df = pd.read_csv(data, header=None)
+
+#Rename column names
+#We can see that the dataset does not have proper column names. The columns are merely labelled as 0,1,2.... and so on. We should give proper names to the columns. I will do it as follows:-
+
+col_names = ['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'class']
+
+
+df.columns = col_names
+
+col_names
+
+
+
+
+X = df.drop(['class'], axis=1)
+
+y = df['class']
+
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.33, random_state = 42)
+
+
+#Encode cateogorical variables
+X_train.dtypes
+
+import category_encoders as ce
+encoder = ce.OrdinalEncoder(cols=['buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety'])
+
+
+X_train = encoder.fit_transform(X_train)
+
+X_test = encoder.transform(X_test)
+
+
+
+#------------------------Train Basic---------------------
+rfc_100 = RandomForestClassifier(n_estimators=100, random_state=0)
+rfc_100.fit(X_train, y_train)
+# Predict on the test set results
+
+y_pred_100 = rfc_100.predict(X_test)
+# Check accuracy score 
+print('Model accuracy score with 100 decision-trees : {0:0.4f}'. format(accuracy_score(y_test, y_pred_100))
+
+#--------------Random forrest feature importance
+clf = RandomForestClassifier(n_estimators=100, random_state=0)
+
+# fit the model to the training set
+
+clf.fit(X_train, y_train
+feature_scores = pd.Series(clf.feature_importances_, index=X_train.columns).sort_values(ascending=False)
+
+repeat the process
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_test, y_pred)
+print('Confusion matrix\n\n', cm)
+from sklearn.metrics import classification_report
+print(classification_report(y_test, y_pred))
+
+
+
