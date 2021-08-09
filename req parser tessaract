@@ -1,7 +1,0 @@
-pytessarect 0.2.4
-opencv_python 3.4.2.17
-scikit_image = 0.14.0
-pillow 5.2.0
-guess_language-spirit=0.5
-
-install tesseract-ocr-w64 setup-v4.0.0-beta.1.20180608
