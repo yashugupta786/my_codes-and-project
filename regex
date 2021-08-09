@@ -1,2 +1,0 @@
- data=re.findall("[3-4]\d{6}\s+v[0-9]{1,2}", text)
-re.findall("(v(\d+)*[.]*(\d+)$)", text.lower()
