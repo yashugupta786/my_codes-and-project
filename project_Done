@@ -31,14 +31,16 @@ neural Platform
 
 Future projects
 S4x similarity auto taging 
-We have legal client in which a 15 min call happens and bpo agents answer questions by entering a string
+We have legal client in which a 15 min call happens and based on that call bpo agents answer several questions by entering a string.The questions are same and they need to answer that 
+questions based on the call.They need to input various strings 
 That string needs to be validate by most of times agent enters same string which reduces the productivity so we implemented a engine fo fiding the similarity of text they enter
 We match the string using elmo embeding and finding the similarity and
 Find the score if score is less than 60 percent we take string is unique
 And agent can enter that string 
 
 
-After that we devloped a engine which classify the string enter by user into different category that is demonstrated or no demonstrate or partial demonstrate 
+After that we devloped a engine which classify the string enter by BPO agents  into different category that is demonstrated or no demonstrate or partial demonstrate. This action is 
+done by the audit team .... with same data  s4x there is baxa tag
 Using bert language model
  After the user submission 
 There is aaudit team who audit the answers entered by user
