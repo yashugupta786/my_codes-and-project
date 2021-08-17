@@ -8,11 +8,11 @@ corona analysis from different sources and making wordcloud for that using custo
 Eclerx
 NMT(Seq2Seq with attention)
 Tia ticket classification (laptopuser/ISG/HR/Compliance/RDP/windows/password/reset/tools)
-S4x similarity using elmo and word vectors
-NPS predictor 
+S4x similarity using elmo and word vectors   client Dentions
+NPS predictor   COMCAST 
 R2R Predictor
-NPS Drivers
-BAXA Classification (Demonstarive,ornot demonstation),binary text and multiclass prediction
+NPS Drivers  COMCAST
+BAXA Classification (Demonstarive,ornot demonstation),binary text and multiclass prediction Dentions
 Chatvolume forcast (in which we have the original dates and actuals calls for different vertical like billing,reconsilation)
 Nps prediction and predicting the classes 
 churn prediction
