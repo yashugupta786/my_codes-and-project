@@ -1,0 +1,1 @@
+certbot certonly --standalone -d exltranslator.in.ngrok.io --staple-ocsp -m yashugupta.gupta11@gmail.com --agree-tos
