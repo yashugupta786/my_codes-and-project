@@ -15,6 +15,7 @@ keras embbeding layer-vector represatation of words
 create embedings on the fly- it take 3 arguments vocab size,embeding dimension, max len
 https://github.com/yashugupta786/Keras_layers_detail/blob/master/keras_embeddings_layer.ipynb
 https://github.com/yashugupta786/keras_sentiment
+https://github.com/yashugupta786/Keras_lstm_text_classification
 we get embbeding from keras embeding layer on the fly 
 it will generate embedings for all the documents with dimension of shape (maxlenth* embedingdimension)
 
