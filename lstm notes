@@ -6,15 +6,15 @@ Time Steps. One time step is one point of observation in the sample.
 Features. One feature is one observation at a time step.
 
 https://machinelearningmastery.com/reshape-input-data-long-short-term-memory-networks-keras/
-
-
 Keras python LSTM (sequential modeling)
+
+
 https://www.liip.ch/en/blog/sentiment-detection-with-keras-word-embeddings-and-lstm-deep-learning-networks
 https://www.youtube.com/watch?v=8h8Z_pKyifM&list=PL1w8k37X_6L9s6pcqz4rAIEYZtF6zKjUE&index=5
 keras embbeding layer-vector represatation of words
 create embedings on the fly- it take 3 arguments vocab size,embeding dimension, max len
-
 https://github.com/yashugupta786/Keras_layers_detail/blob/master/keras_embeddings_layer.ipynb
+https://github.com/yashugupta786/keras_sentiment
 we get embbeding from keras embeding layer on the fly 
 it will generate embedings for all the documents with dimension of shape (maxlenth* embedingdimension)
 
