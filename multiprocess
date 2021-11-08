@@ -1,0 +1,14 @@
+    def schedule_job(self, symbollist):
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+            results = executor.map(self.get_Kitedata, symbollist)
+        return results
+   Finaldf = pd.DataFrame()
+sectr_df = pd.DataFrame()
+stock_df = self.get_nse_data(nse_url)
+symbollist = stock_df['Symbol'].tolist()
+
+# symbollist=['HDFCBANK']
+results = self.schedule_job(symbollist)
+# self.days=4
+# sectr_df_res=self.schedule_job(self.sectr_list)
+dailydf = pd.DataFrame.append(Finaldf, list(results), ignore_index=True
