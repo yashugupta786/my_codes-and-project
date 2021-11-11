@@ -37,10 +37,10 @@ data.head()
 
 13-----------------------------query with np.where 
 
-np.where(condition,x,y)
+np.where(df[condition],x,y)
 
-  condition will give true or false 
-  and based on the true and false x y will be appended to the data frame
+  condition will give true or false to the series to all  the values 
+  and based on the true and false the values of x y (x,y can be series also)will be appended to the data frame series
 
 # coding=utf8
 
