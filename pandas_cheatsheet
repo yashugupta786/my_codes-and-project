@@ -35,7 +35,12 @@ data['normAmount'] = StandardScaler().fit_transform(data['Amount'].reshape(-1, 1
 data = data.drop(['Time', 'Amount'], axis=1)
 data.head()
 
+13-----------------------------query with np.where 
 
+np.where(condition,x,y)
+
+  condition will give true or false 
+  and based on the true and false x y will be appended to the data frame
 
 # coding=utf8
 
