@@ -56,7 +56,10 @@ np.where(df[condition],x,y)
          d1   1   5    7
       
       df.merge(dfnew on="ID",how="left)
-#-----------------------------------------------
+15 #----------------------------------------------- get the lowest value of a column based on groups and renaming the column and creating new in nw df----------------
+      latestdf=df.dataframe(df.groupby(by=["ID"])["col1"].apply(np.min).reset_index().rename(columns={"col1":"new_col1"}))
+#----------------------------------------------------------------------------------------------------------------------------------------------
+
 # coding=utf8
 
 import pandas as pd
