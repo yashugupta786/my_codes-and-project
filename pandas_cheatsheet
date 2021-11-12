@@ -66,8 +66,8 @@ np.where(df[condition],x,y)
                we can also use groupby with this method if we need grouping output 
     fidning the max value of col            df.dataframe(df.groupby(by=["ID"]).agg({"col2":max}).reset_index().rename(columns={"col2":"new_col2_2"}))
     
- !7---------------------------------------------
-               
+ !7-------------------renaming columns header--------------------------
+               df.rename(columns={old:new},inplace=True)
           
 
 # coding=utf8
