@@ -41,7 +41,22 @@ np.where(df[condition],x,y)
 
   condition will give true or false to the series to all  the values 
   and based on the true and false the values of x y (x,y can be series also)will be appended to the data frame series
+  
+  
+14------------------------------merge datframe based on column 
+                                foreg 
+                              ID      value
+           dfnew               d1      5
+                               d2      6
 
+         original df 
+         ID col1 col2 col3 
+         d1   5   6    7 
+         d2   7   8    8 
+         d1   1   5    7
+      
+      df.merge(dfnew on="ID",how="left)
+#-----------------------------------------------
 # coding=utf8
 
 import pandas as pd
