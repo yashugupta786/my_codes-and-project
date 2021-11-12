@@ -58,7 +58,17 @@ np.where(df[condition],x,y)
       df.merge(dfnew on="ID",how="left)
 15 #----------------------------------------------- get the lowest value of a column based on groups and renaming the column and creating new in nw df----------------
       latestdf=df.dataframe(df.groupby(by=["ID"])["col1"].apply(np.min).reset_index().rename(columns={"col1":"new_col1"}))
-#----------------------------------------------------------------------------------------------------------------------------------------------
+      
+      
+16 #-------------- Aggregate ‘sum’ and ‘min’ function across all the columns in data frame.------------------------------------
+
+               df.aggregate(['sum', 'min'])
+               we can also use groupby with this method if we need grouping output 
+    fidning the max value of col            df.dataframe(df.groupby(by=["ID"]).agg({"col2":max}).reset_index().rename(columns={"col2":"new_col2_2"}))
+    
+ !7---------------------------------------------
+               
+          
 
 # coding=utf8
 
