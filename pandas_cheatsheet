@@ -68,7 +68,11 @@ np.where(df[condition],x,y)
     
  !7-------------------renaming columns header--------------------------
                df.rename(columns={old:new},inplace=True)
-          
+ 
+ 
+ 18----------------Multiple groupby and aggregate base on dictionary 
+ 
+ multiple_group=df.groupby(["ID","col2"]).agg(agg_val).reset_index()
 
 # coding=utf8
 
