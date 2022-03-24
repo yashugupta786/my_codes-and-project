@@ -1,0 +1,21 @@
+add bot ,create public channel, add bot to channel 
+
+
+
+
+
+import requests
+
+BOT_API_KEY = '5166483743:AAFbDiU5V67nV1dWoGLPA0GTH4Vb0TMckNo'
+MY_CHANNEL_NAME = '@yashuchannel'
+MY_MESSAGE_TEXT = 'please add deepam'
+
+response = requests.get(f'https://api.telegram.org/bot{BOT_API_KEY}/sendMessage', {
+    'chat_id': MY_CHANNEL_NAME,
+    'text': MY_MESSAGE_TEXT
+})
+
+if response.status_code == 200:
+    print('ok')
+else:
+    print(response.text)
