@@ -193,4 +193,5 @@ https://www.analyticsvidhya.com/blog/2021/05/measuring-text-similarity-using-ber
 Async flask api  with redis task queue
 https://github.com/yashugupta786/rq-flask-template
 https://towardsdatascience.com/use-redis-queue-for-asynchronous-tasks-in-a-flask-app-d39f2a8c2667
+https://stackoverflow.com/questions/6476945/how-do-i-run-redis-on-windows   redis as service on windows
 
