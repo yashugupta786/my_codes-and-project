@@ -187,3 +187,10 @@ https://stackoverflow.com/questions/43474923/two-functions-in-parallel-with-mult
 
 
 https://www.analyticsvidhya.com/blog/2021/05/measuring-text-similarity-using-bert/                         finding similarity using bert 
+
+
+
+Async flask api  with redis task queue
+https://github.com/yashugupta786/rq-flask-template
+https://towardsdatascience.com/use-redis-queue-for-asynchronous-tasks-in-a-flask-app-d39f2a8c2667
+
