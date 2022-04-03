@@ -27,3 +27,8 @@ docker stop [option] container_id
 
 Run a conrtainer
 docker run -it -p 5000:5000 name of iamge
+
+
+Delete container or images
+docker system prune -a will delete ALL unused data (i.e., in order: containers stopped, volumes without containers and images with no containers).
+docker system prune without -a will remove (for images) only dangling images, or images without a tag
