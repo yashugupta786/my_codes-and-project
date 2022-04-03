@@ -1,0 +1,29 @@
+build a docker image
+
+docker build -t name of image .
+
+So now you can run any command in a running container just knowing its ID (or name):
+docker exec -it <container_id_or_name> echo "Hello from container!"
+docker exec -it <container_id_or_name> /bin/sh
+
+Note that exec command works only on already running container. If the container is currently stopped, you need to first run it with the following command:
+
+docker run -it -d shykes/pybuilder /bin/bash
+The most important thing here is the -d option, which stands for detached. 
+It means that the command you initially provided to the container (/bin/bash) will be run in the background and the container will not stop immediately.
+
+
+
+Command to check container running 
+docker ps 
+
+
+to list all contqainer running and stop 
+docker ps –a
+
+to stop a running container 
+docker stop [option] container_id
+
+
+Run a conrtainer
+docker run -it -p 5000:5000 name of iamge
