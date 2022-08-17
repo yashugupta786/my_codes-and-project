@@ -203,5 +203,7 @@ https://towardsdatascience.com/use-redis-queue-for-asynchronous-tasks-in-a-flask
 https://stackoverflow.com/questions/6476945/how-do-i-run-redis-on-windows   redis as service on windows
 https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xxii-background-jobs
 
-https://towardsdatascience.com/deploying-ml-models-in-production-with-fastapi-and-celery-7063e539a5db
 
+----------------------
+https://towardsdatascience.com/deploying-ml-models-in-production-with-fastapi-and-celery-7063e539a5db
+https://medium.com/technonerds/a-production-grade-machine-learning-api-using-flask-gunicorn-nginx-and-docker-part-2-c69629199037
