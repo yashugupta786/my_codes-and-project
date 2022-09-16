@@ -210,3 +210,4 @@ https://medium.com/technonerds/a-production-grade-machine-learning-api-using-fla
 https://medium.com/@maheshkkumar/a-guide-to-deploying-machine-deep-learning-model-s-in-production-e497fd4b734a
 https://levelup.gitconnected.com/dockerized-flask-celery-rabbitmq-redis-application-df74c837a0a1
 https://towardsdatascience.com/containerizing-huggingface-transformers-for-gpu-inference-with-docker-and-fastapi-on-aws-d4a83edede2f
+https://stackabuse.com/asynchronous-tasks-in-django-with-redis-and-celery/
