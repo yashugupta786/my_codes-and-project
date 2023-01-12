@@ -150,3 +150,9 @@ class ChatInteractions(object):
         result = data[config.weighted_cols].apply(lambda x: np.asarray(x) * np.asarray (weights), axis=0)
         data[config.weighted_cols] = result
         return data[config.mean_cols[1:]].mean()
+
+
+
+pandas groupby by with sum
+df.groupby([col1,col2]).agg({col3:sum}).reset_index()
+df.groupby([col1]).agg({col3:np.mean}).reset_index()
