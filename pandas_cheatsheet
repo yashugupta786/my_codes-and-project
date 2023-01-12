@@ -155,4 +155,5 @@ class ChatInteractions(object):
 
 pandas groupby by with sum
 df.groupby([col1,col2]).agg({col3:sum}).reset_index()
+df.groupby([col1,col2]).agg({col3:[sum,len]}).droplevel(0,axis=1).rename(columns={"sum":"sumcol","len":"supplier_count"}).astype(int).reset_index()
 df.groupby([col1]).agg({col3:np.mean}).reset_index()
