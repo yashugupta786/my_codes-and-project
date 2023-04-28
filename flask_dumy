@@ -1,0 +1,32 @@
+import os
+from flask import Flask, jsonify, request
+import business_logic_dev
+import configparser
+# creating a Flask app
+
+curr_path=os.getcwd()
+config_loc="../config/Config.cfg"
+config_file_loc=os.path.join(curr_path,config_loc)
+config_obj=configparser.ConfigParser()
+
+config_obj.read(config_file_loc)
+data1=config_obj.get("globalconfig","pred_col")
+print(data1)
+
+app = Flask(__name__)
+
+# on the terminal type: curl http://127.0.0.1:5000/
+# returns hello world when we use GET.
+# returns the data that we send when we use POST.
+@app.route('/text_check', methods = [ 'POST'])
+def text_check():
+    gg = request.get_json()
+    x = gg["Data"]["num1"]
+    y = gg["Data"]["num2"]
+    res= business_logic_dev.sum(x, y)
+    ff=os.getcwd()
+    print(ff)
+    return jsonify({'data': res})
+
+def startapi():
+    app.run()
