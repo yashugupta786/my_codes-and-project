@@ -1,0 +1,12 @@
+FROM  python:3.8.8
+
+WORKDIR /app
+
+COPY . /app
+#update
+
+#install requirements
+RUN pip install  --no-cache-dir  -r requirements.txt
+#copy app
+
+CMD ["gunicorn", "-w", "5", "-b", ":5000", "-t", "360", "--reload", "main_service:app"]
